@@ -1,0 +1,22 @@
+{
+	"name": "helpdesk-ticketing-app",
+	"version": "1.0.0",
+	"description": "A support desk ticketing system project",
+	"main": "server.js",
+	"scripts": {
+		"start": "node backend/server.js",
+		"server": "nodemon backend/server.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "chenjia LI",
+	"license": "MIT",
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"colors": "^1.4.0",
+		"dotenv": "^16.0.1",
+		"express": "^4.18.1"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.18"
+	}
+}
