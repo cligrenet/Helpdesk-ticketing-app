@@ -1,11 +1,15 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
+const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
 const PORT = process.env.PORT || 8080;
 
 const app = express();
 
 // Middlewares
+const corsOptions = { origin: process.env.FRONTEND_URL, credentials: true };
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
