@@ -1,0 +1,12 @@
+CREATE DATABASE pernhelpdesk;
+
+-- Define schema
+
+CREATE TABLE users(
+    user_id SERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL, 
+    password VARCHAR(150) NOT NULL,
+    isAdmin BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
