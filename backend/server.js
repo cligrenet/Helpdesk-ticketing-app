@@ -1,8 +1,15 @@
 const express = require('express');
+const colors = require('colors');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
+const pool = require('./config/db');
 const { errorHandler } = require('./middleware/errorMiddleware');
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.SERVER_PORT || 8080;
+
+// MONGODB EXAMPLE
+// const connectDB = require('./config/db');
+// Connect to DB
+// connectDB()
 
 const app = express();
 
