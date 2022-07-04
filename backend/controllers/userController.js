@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler');
-const pool = require('../db');
+const bcrypt = require('bcryptjs');
+const pool = require('../config/db');
+const jwt = require('jsonwebtoken');
 
 // @desc Register a new user
 // @route /api/users
@@ -13,16 +15,84 @@ const registerUser = asyncHandler(async (req, res) => {
 		throw new Error('🔺 Please make sure all fields are completed correctly.');
 	}
 
-	res.send('Register Route');
+	// Find if user already exists
+	const foundUser = await pool.query(`SELECT email FROM users WHERE email='${email}'`);
+	// console.log(foundUser);
+	if (foundUser.rows.length !== 0) {
+		res.status(400);
+		throw new Error('User already exists');
+	}
+
+	// Hash password
+	const salt = await bcrypt.genSalt(10);
+	const hashedPassword = await bcrypt.hash(password, salt);
+
+	// Create user
+	const user = await pool.query(
+		'INSERT INTO users(name, email, password, isAdmin) VALUES ($1, $2, $3, $4) RETURNING *',
+		[name, email, hashedPassword, false],
+	);
+	const newUser = user.rows[0];
+
+	if (newUser) {
+		res.status(201).json({
+			user_id: newUser.user_id,
+			name: newUser.name,
+			email: newUser.email,
+			token: generateToken(newUser.user_id),
+		});
+	} else {
+		res.status(400);
+		throw new Error('Invalid user data');
+	}
 });
 
 // @desc Login a user
 // @route /api/login
 // @access Public
 const loginUser = asyncHandler(async (req, res) => {
-	res.send('Login Route');
+	const { email, password } = req.body;
+
+	const user = await pool.query(`SELECT * from users WHERE email='${email}'`);
+	const foundUser = user.rows[0];
+
+	// Check user and passords match
+	if (foundUser && (await bcrypt.compare(password, foundUser.password))) {
+		res.status(200).json({
+			user_id: foundUser.user_id,
+			name: foundUser.name,
+			email: foundUser.email,
+			token: generateToken(foundUser.user_id),
+		});
+	} else {
+		res.status(401);
+		throw new Error('Invalid credentials');
+	}
 });
 
+// @desc Get current user
+// @route /api/users/me
+// @access Private
+const getMe = asyncHandler(async (req, res) => {
+	const user = req.user.rows[0];
+	res.status(200).json(user);
+});
+
+// Generate token
+const generateToken = (id) => {
+	return jwt.sign({ id }, process.env.JWT_SECRET, {
+		expiresIn: '30d',
+	});
+};
+
+module.exports = {
+	registerUser,
+	loginUser,
+	getMe,
+};
+
+/////////////////////////////////////////
+/////////////////////////////////////////
 // EXAMPLE CREATE a todo //
 // app.post('/todos', async(req, res) => {
 // try {
@@ -77,8 +147,3 @@ const loginUser = asyncHandler(async (req, res) => {
 // 		console.error(err.message);
 // 	}
 // });
-
-module.exports = {
-	registerUser,
-	loginUser,
-};
