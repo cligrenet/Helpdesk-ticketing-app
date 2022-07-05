@@ -10,3 +10,16 @@ CREATE TABLE users(
     isAdmin BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+CREATE TYPE product AS ENUM ('iPhone','Macbook Pro','Macbook Air', 'iMac', 'iPad');
+CREATE TYPE status AS ENUM('new', 'open', 'closed');
+CREATE TABLE tickets(
+    ticket_id SERIAL PRIMARY KEY NOT NULL,
+    user_id INT REFERENCES users NOT NULL, 
+    product product NOT NULL, 
+    description VARCHAR(500),
+    status status NOT NULL DEFAULT 'new',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
