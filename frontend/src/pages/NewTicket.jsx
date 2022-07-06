@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { createTicket, reset } from '../features/tickets/ticketSlice';
 import Spinner from '../components/Spinner';
-import axios from 'axios';
 import BackButton from '../components/BackButton';
 
 function NewTicket() {
 	const { user } = useSelector((state) => state.auth);
-	const { isLoading, isError, isSuccess, message } = useSelector((state) => state.ticket);
+	const { isLoading, isError, isSuccess, message } = useSelector((state) => state.tickets);
 
 	const [name] = useState(user.name);
 	const [email] = useState(user.email);
