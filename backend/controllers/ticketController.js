@@ -9,15 +9,15 @@ const jwt = require('jsonwebtoken');
 const getTickets = asyncHandler(async (req, res) => {
 	// Get user using the id in the JWT
 	// console.log(req.user.rows[0]);
-	const wantedUserId = req.user.rows[0].user_id;
-	const user = await pool.query(`SELECT * FROM users WHERE user_id=${wantedUserId}`);
+	const wantedUserId = req.user.rows[0].userId;
+	const user = await pool.query(`SELECT * FROM users WHERE userId=${wantedUserId}`);
 
 	if (!user) {
 		res.status(401);
 		throw new Error('User not found');
 	}
 
-	const tickets = await pool.query(`SELECT * FROM tickets WHERE user_id=${wantedUserId}`);
+	const tickets = await pool.query(`SELECT * FROM tickets WHERE userId=${wantedUserId}`);
 
 	res.status(200).json(tickets.rows);
 });
@@ -35,8 +35,8 @@ const createTicket = asyncHandler(async (req, res) => {
 	}
 
 	// Get user using the id in the JWT
-	const wantedUserId = req.user.rows[0].user_id;
-	const user = await pool.query(`SELECT * FROM users WHERE user_id=${wantedUserId}`);
+	const wantedUserId = req.user.rows[0].userId;
+	const user = await pool.query(`SELECT * FROM users WHERE userId=${wantedUserId}`);
 
 	if (!user) {
 		res.status(401);
@@ -45,7 +45,7 @@ const createTicket = asyncHandler(async (req, res) => {
 
 	// Create ticket
 	const ticket = await pool.query(
-		'INSERT INTO tickets(user_id, product, description, status) VALUES ($1, $2, $3, $4) RETURNING *',
+		'INSERT INTO tickets(userId, product, description, status) VALUES ($1, $2, $3, $4) RETURNING *',
 		[wantedUserId, product, description, 'new'],
 	);
 
@@ -61,15 +61,15 @@ const createTicket = asyncHandler(async (req, res) => {
 const getTicket = asyncHandler(async (req, res) => {
 	// Get user using the id in the JWT
 	// console.log(req.user.rows[0]);
-	const wantedUserId = req.user.rows[0].user_id;
-	const user = await pool.query(`SELECT * FROM users WHERE user_id=${wantedUserId}`);
+	const wantedUserId = req.user.rows[0].userId;
+	const user = await pool.query(`SELECT * FROM users WHERE userId=${wantedUserId}`);
 
 	if (!user) {
 		res.status(401);
 		throw new Error('User not found');
 	}
 
-	const ticket = await pool.query(`SELECT * FROM tickets WHERE ticket_id=${req.params.id}`);
+	const ticket = await pool.query(`SELECT * FROM tickets WHERE ticketId=${req.params.id}`);
 	// console.log(ticket);
 	const foundTicket = ticket.rows[0];
 
@@ -78,7 +78,7 @@ const getTicket = asyncHandler(async (req, res) => {
 		throw new Error('Ticket not found');
 	}
 
-	if (foundTicket.user_id !== wantedUserId) {
+	if (foundTicket.userId !== wantedUserId) {
 		res.status(401);
 		throw new Error('Not authorized');
 	}
@@ -92,15 +92,15 @@ const getTicket = asyncHandler(async (req, res) => {
 const deleteTicket = asyncHandler(async (req, res) => {
 	// Get user using the id in the JWT
 	// console.log(req.user.rows[0]);
-	const wantedUserId = req.user.rows[0].user_id;
-	const user = await pool.query(`SELECT * FROM users WHERE user_id=${wantedUserId}`);
+	const wantedUserId = req.user.rows[0].userId;
+	const user = await pool.query(`SELECT * FROM users WHERE userId=${wantedUserId}`);
 
 	if (!user) {
 		res.status(401);
 		throw new Error('User not found');
 	}
 
-	const ticket = await pool.query(`SELECT * FROM tickets WHERE ticket_id=${req.params.id}`);
+	const ticket = await pool.query(`SELECT * FROM tickets WHERE ticketId=${req.params.id}`);
 	// console.log(ticket);
 	const foundTicket = ticket.rows[0];
 
@@ -109,13 +109,13 @@ const deleteTicket = asyncHandler(async (req, res) => {
 		throw new Error('Ticket not found');
 	}
 
-	if (foundTicket.user_id !== wantedUserId) {
+	if (foundTicket.userId !== wantedUserId) {
 		res.status(401);
 		throw new Error('Not authorized');
 	}
 
 	// Remove ticket
-	await pool.query(`DELETE FROM tickets WHERE ticket_id=${req.params.id}`);
+	await pool.query(`DELETE FROM tickets WHERE ticketId=${req.params.id}`);
 
 	res.status(200).json({ success: true, message: 'Ticket deleted' });
 });
@@ -126,15 +126,15 @@ const deleteTicket = asyncHandler(async (req, res) => {
 const updateTicket = asyncHandler(async (req, res) => {
 	// Get user using the id in the JWT
 	// console.log(req.user.rows[0]);
-	const wantedUserId = req.user.rows[0].user_id;
-	const user = await pool.query(`SELECT * FROM users WHERE user_id=${wantedUserId}`);
+	const wantedUserId = req.user.rows[0].userId;
+	const user = await pool.query(`SELECT * FROM users WHERE userId=${wantedUserId}`);
 
 	if (!user) {
 		res.status(401);
 		throw new Error('User not found');
 	}
 
-	const ticket = await pool.query(`SELECT * FROM tickets WHERE ticket_id=${req.params.id}`);
+	const ticket = await pool.query(`SELECT * FROM tickets WHERE ticketId=${req.params.id}`);
 	// console.log(ticket);
 	const foundTicket = ticket.rows[0];
 
@@ -143,7 +143,7 @@ const updateTicket = asyncHandler(async (req, res) => {
 		throw new Error('Ticket not found');
 	}
 
-	if (foundTicket.user_id !== wantedUserId) {
+	if (foundTicket.userId !== wantedUserId) {
 		res.status(401);
 		throw new Error('Not authorized');
 	}
@@ -155,7 +155,7 @@ const updateTicket = asyncHandler(async (req, res) => {
 	// QUESTION 1 how to set not changing columns to original value, only want to change status form 'new' to 'closed'
 	// QUESTION 2 how to automatically update updated_at
 	const updatedTicket = await pool.query(
-		`UPDATE tickets SET product=$1, description=$2, status=$3 WHERE ticket_id=$4 RETURNING *`,
+		`UPDATE tickets SET product=$1, description=$2, status=$3 WHERE ticketId=$4 RETURNING *`,
 		[product, description, 'closed', req.params.id],
 	);
 

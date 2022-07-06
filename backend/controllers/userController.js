@@ -36,10 +36,10 @@ const registerUser = asyncHandler(async (req, res) => {
 
 	if (newUser) {
 		res.status(201).json({
-			user_id: newUser.user_id,
+			userId: newUser.userId,
 			name: newUser.name,
 			email: newUser.email,
-			token: generateToken(newUser.user_id),
+			token: generateToken(newUser.userId),
 		});
 	} else {
 		res.status(400);
@@ -59,10 +59,10 @@ const loginUser = asyncHandler(async (req, res) => {
 	// Check user and passords match
 	if (foundUser && (await bcrypt.compare(password, foundUser.password))) {
 		res.status(200).json({
-			user_id: foundUser.user_id,
+			userId: foundUser.userId,
 			name: foundUser.name,
 			email: foundUser.email,
-			token: generateToken(foundUser.user_id),
+			token: generateToken(foundUser.userId),
 		});
 	} else {
 		res.status(401);
