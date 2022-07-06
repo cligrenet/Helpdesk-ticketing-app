@@ -14,6 +14,7 @@ CREATE TABLE users(
 
 CREATE TYPE product AS ENUM ('iPhone','Macbook Pro','Macbook Air', 'iMac', 'iPad');
 CREATE TYPE status AS ENUM('new', 'open', 'closed');
+
 CREATE TABLE tickets(
     ticket_id SERIAL PRIMARY KEY NOT NULL,
     user_id INT REFERENCES users NOT NULL, 
