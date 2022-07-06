@@ -107,7 +107,7 @@ export const ticketSlice = createSlice({
 			.addCase(closeTicket.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.tickets.map(
-					(ticket) => (ticket.ticket_id === action.payload.ticket_id ? (ticket.status = 'closed') : ticket),
+					(ticket) => (ticket.ticketId === action.payload.ticketId ? (ticket.status = 'closed') : ticket),
 					// Like this, no need to reload to show updated status
 				);
 			});

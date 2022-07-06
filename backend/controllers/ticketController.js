@@ -153,7 +153,7 @@ const updateTicket = asyncHandler(async (req, res) => {
 	console.log(req.body);
 
 	// QUESTION 1 how to set not changing columns to original value, only want to change status form 'new' to 'closed'
-	// QUESTION 2 how to automatically update updated_at
+	// QUESTION 2 how to automatically update updatedAt
 	const updatedTicket = await pool.query(
 		`UPDATE tickets SET product=$1, description=$2, status=$3 WHERE ticketId=$4 RETURNING *`,
 		[product, description, 'closed', req.params.id],

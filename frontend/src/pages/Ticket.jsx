@@ -42,10 +42,10 @@ function Ticket() {
 			<header className="ticket-header">
 				<BackButton url="/tickets" />
 				<h2>
-					Ticket ID: {ticket.ticket_id}{' '}
+					Ticket ID: {ticket.ticketId}{' '}
 					<span className={`status status-${ticket.status}`}>{ticket.status}</span>
 				</h2>
-				<h3>Date Submitted: {new Date(ticket.created_at).toLocaleString('en-UL')}</h3>
+				<h3>Date Submitted: {new Date(ticket.createdAt).toLocaleString('en-UL')}</h3>
 				<h3>Product: {ticket.product}</h3>
 				<hr />
 				<div className="ticket-desc">
