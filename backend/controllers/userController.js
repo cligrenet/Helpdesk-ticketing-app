@@ -29,17 +29,17 @@ const registerUser = asyncHandler(async (req, res) => {
 
 	// Create user
 	const user = await pool.query(
-		'INSERT INTO users(name, email, password, isAdmin) VALUES ($1, $2, $3, $4) RETURNING *',
+		'INSERT INTO users(name, email, password, is_admin) VALUES ($1, $2, $3, $4) RETURNING *',
 		[name, email, hashedPassword, false],
 	);
 	const newUser = user.rows[0];
 
 	if (newUser) {
 		res.status(201).json({
-			userId: newUser.userId,
+			user_id: newUser.user_id,
 			name: newUser.name,
 			email: newUser.email,
-			token: generateToken(newUser.userId),
+			token: generateToken(newUser.user_id),
 		});
 	} else {
 		res.status(400);
@@ -59,10 +59,10 @@ const loginUser = asyncHandler(async (req, res) => {
 	// Check user and passords match
 	if (foundUser && (await bcrypt.compare(password, foundUser.password))) {
 		res.status(200).json({
-			userId: foundUser.userId,
+			user_id: foundUser.user_id,
 			name: foundUser.name,
 			email: foundUser.email,
-			token: generateToken(foundUser.userId),
+			token: generateToken(foundUser.user_id),
 		});
 	} else {
 		res.status(401);
