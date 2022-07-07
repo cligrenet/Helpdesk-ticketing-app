@@ -12,7 +12,7 @@ import { FaPlus } from 'react-icons/fa';
 
 // React Modal
 const customStyles = {
-	concept: {
+	content: {
 		width: '600px',
 		top: '50%',
 		left: '50%',
@@ -81,14 +81,18 @@ function Ticket() {
 			<header className="ticket-header">
 				<BackButton url="/tickets" />
 				<h2>
-					Ticket ID: {ticket.ticket_id}{' '}
+					Ticket ID : {ticket.ticket_id}
 					<span className={`status status-${ticket.status}`}>{ticket.status}</span>
 				</h2>
-				<h3>Date Submitted: {new Date(ticket.created_at).toLocaleString('en-UL')}</h3>
-				<h3>Product: {ticket.product}</h3>
-				<hr />
+
+				<p>
+					Product : {ticket.product}{' '}
+					<span className="ticket-header-date">
+						Date Submitted: {new Date(ticket.created_at).toLocaleString('en-UL')}
+					</span>
+				</p>
 				<div className="ticket-desc">
-					<h3>Description of Issue</h3>
+					<h3>Description of Issue </h3>
 					<p>{ticket.description}</p>
 				</div>
 				<h2>Notes</h2>

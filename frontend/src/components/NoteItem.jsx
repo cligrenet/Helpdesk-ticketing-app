@@ -8,8 +8,7 @@ const NoteItem = ({ note }) => {
 		<div
 			className="note"
 			style={{
-				backgroundColor: note.is_staff ? 'rgba(0,0,0,0.7)' : '#fff',
-				color: note.is_staff ? '#fff' : '#000',
+				backgroundColor: note.is_staff ? '#aeeed7' : '#fff',
 			}}
 		>
 			<h4>Note from {note.is_staff ? <span>Staff</span> : <span>{user.name}</span>}</h4>
