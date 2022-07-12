@@ -11,7 +11,7 @@ Node.js, React.js
 ## Dependencies
 
 -   bcryptjs, colors, concurrently, dotenv, express, express-async-handler, jsonwebtoken, pg, nodemon
--   Frontend: React Router V6, react-icons, reduxjs, axios, react-toastify, react-modal
+-   Frontend: React Router V6, react-icons, reduxjs, [Redux Toolkit](https://www.npmjs.com/package/@reduxjs/toolkit), axios, react-toastify, react-modal
 
 ## Installation
 

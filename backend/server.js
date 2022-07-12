@@ -26,5 +26,5 @@ app.use('/api/tickets', require('./routes/ticketRoutes'));
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-	console.log(`Server running on port http://localhost:${PORT}`);
+	console.log(`Server running on port http://localhost:${PORT}`.yellow.bold);
 });
