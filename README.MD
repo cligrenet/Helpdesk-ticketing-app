@@ -24,6 +24,6 @@ Run `npm run dev` on the project root will launch both the server and the client
 
 ## Screen shots
 
-![alt text][https://github.com/cligrenet/helpdesk-ticketing-app/blob/main/frontend/public/shot1.png "screen shot 1"]
-![alt text][https://github.com/cligrenet/helpdesk-ticketing-app/blob/main/frontend/public/shot2.png "screen shot 2"]
-![alt text][https://github.com/cligrenet/helpdesk-ticketing-app/blob/main/frontend/public/shot3.png "screen shot 3"]
+![alt text](https://github.com/cligrenet/helpdesk-ticketing-app/blob/main/frontend/public/shot1.png 'screen shot 1')
+![alt text](https://github.com/cligrenet/helpdesk-ticketing-app/blob/main/frontend/public/shot2.png 'screen shot 2')
+![alt text](https://github.com/cligrenet/helpdesk-ticketing-app/blob/main/frontend/public/shot3.png 'screen shot 3')
