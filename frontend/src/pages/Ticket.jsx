@@ -76,52 +76,69 @@ function Ticket() {
 		return <h3>Something went wrong</h3>;
 	}
 
-	return (
-		<div className="ticket-page">
-			<header className="ticket-header">
-				<BackButton url="/tickets" />
-				<h2>
-					Ticket ID : {ticket.ticket_id}
-					<span className={`status status-${ticket.status}`}>{ticket.status}</span>
-				</h2>
+	const status = `bg-[#333] text-[#fff] w-[100px] px-[20px] justify-center rounded-[10px] text-[16px] text-center float-right ${
+		ticket.status === 'new' ? 'bg-highlight-yellow' : 'bg-highlight-blue'
+	}`;
 
-				<p>
-					Product : {ticket.product}{' '}
-					<span className="ticket-header-date">
-						Date Submitted: {new Date(ticket.created_at).toLocaleString('en-UL')}
-					</span>
-				</p>
-				<div className="ticket-desc">
-					<h3>Description of Issue </h3>
-					<p>{ticket.description}</p>
+	return (
+		<div className="relative text-left">
+			<header>
+				<BackButton url="/tickets" />
+				<div className="mt-[20px]">
+					<h2 className="text-xl font-semibold">
+						Ticket ID : {ticket.ticket_id}
+						<span className={status}>{ticket.status}</span>
+					</h2>
+
+					<p className="leading-relaxed">
+						Product : {ticket.product}{' '}
+						<span className="float-right">
+							Date Submitted: {new Date(ticket.created_at).toLocaleString('en-UL')}
+						</span>
+					</p>
 				</div>
-				<h2>Notes</h2>
+				<div className="mt-[20px] mb-[40px] text-[17px] bg-bg-light">
+					<h3 className="text-highlight-green">Description of Issue </h3>
+					<p className="leading-relaxed">{ticket.description}</p>
+				</div>
+				<h2 className="font-semibold">Notes</h2>
 			</header>
 
 			{ticket.status !== 'closed' && (
-				<button className="btn" onClick={openModal}>
-					<FaPlus /> Add Note
+				<button
+					className="p-[10px] border-solid border border-highlight-green rounded-[5px]
+				bg-highlight-green text-[#fff] text-[13px] font-bold cursor-pointer text-center flex items-center justify-center hover:scale-[.98] py-[5px] px-[15px]"
+					onClick={openModal}
+				>
+					<FaPlus className="mr-[5px]" /> Add Note
 				</button>
 			)}
 
 			<Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} contentLabel="Add Note">
 				<h2>Add Note</h2>
-				<button className="btn-close" onClick={closeModal}>
-					X
+				<button
+					className="text-[#000] absolute top-[5px] right-[5px] text-[12px] cursor-pointer hover:text-highlight-green"
+					onClick={closeModal}
+				>
+					Close
 				</button>
 				<form onSubmit={onNoteSubmit}>
-					<div className="form-group">
+					<div className="mb-[10px]">
 						<textarea
 							name="noteText"
 							id="noteText"
 							placeholder="Note text"
-							className="form-control"
+							className="w-full p-[10px] border border-solid border-[#e6e6e6] rounded-[5px] mb-[10px]"
 							value={noteText}
 							onChange={(e) => setNoteText(e.target.value)}
 						></textarea>
 					</div>
-					<div className="form-group">
-						<button className="btn" type="submit">
+					<div className="mb-[10px]">
+						<button
+							className="float-right p-[10px] border-solid border border-highlight-green rounded-[5px]
+				bg-highlight-green text-[#fff] text-[16px] font-bold cursor-pointer text-center flex items-center justify-center hover:scale-[0.98] py-[5px] px-[15px]"
+							type="submit"
+						>
 							Submit
 						</button>
 					</div>
@@ -133,7 +150,11 @@ function Ticket() {
 			))}
 
 			{ticket.status !== 'closed' && (
-				<button className="btn btn-block btn-danger" onClick={onTicketClose}>
+				<button
+					className="mt-[10px] p-[10px] border-solid border border-highlight-blue rounded-[5px]
+				bg-highlight-blue text-[#fff] text-[13px] font-bold cursor-pointer text-center flex items-center justify-center hover:scale-[.98] w-full"
+					onClick={onTicketClose}
+				>
 					Close Ticket
 				</button>
 			)}

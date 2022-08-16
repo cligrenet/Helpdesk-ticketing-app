@@ -14,7 +14,7 @@ function App() {
 	return (
 		<>
 			<Router>
-				<div className="container">
+				<div className="w-full xl:max-w-[960px] md:max-w-[600px] sm:max-w-[400px] my-0 mx-auto py-[20px] text-center">
 					<Header />
 					<Routes>
 						<Route path="/" element={<Home />} />

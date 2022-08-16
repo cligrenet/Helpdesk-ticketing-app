@@ -62,18 +62,18 @@ function Register() {
 
 	return (
 		<>
-			<section className="heading">
-				<h1>
-					<FaUser /> Register
+			<section className="text-4xl font-bold mb-[50px] px-20px">
+				<h1 className="flex justify-center text-5xl mb-[10px]">
+					<FaUser className="mr-[5px]" /> Register
 				</h1>
-				<p>Please create an account</p>
+				<p className="text-grey-2 leading-relaxed">Please create an account</p>
 			</section>
-			<section className="form">
+			<section className="w-9/12 my-0 mx-auto">
 				<form onSubmit={onSubmit}>
-					<div className="form-group">
+					<div className="mb-[10px]">
 						<input
 							type="text"
-							className="form-control"
+							className="w-full p-[10px] border border-solid border-[#e6e6e6] rounded-[5px] mb-[10px]"
 							id="name"
 							name="name"
 							value={name}
@@ -82,10 +82,10 @@ function Register() {
 							required
 						/>
 					</div>
-					<div className="form-group">
+					<div className="mb-[10px]">
 						<input
 							type="email"
-							className="form-control"
+							className="w-full p-[10px] border border-solid border-[#e6e6e6] rounded-[5px] mb-[10px]"
 							id="email"
 							name="email"
 							value={email}
@@ -94,10 +94,10 @@ function Register() {
 							required
 						/>
 					</div>
-					<div className="form-group">
+					<div className="mb-[10px]">
 						<input
 							type="password"
-							className="form-control"
+							className="w-full p-[10px] border border-solid border-[#e6e6e6] rounded-[5px] mb-[10px]"
 							id="password"
 							name="password"
 							value={password}
@@ -106,10 +106,10 @@ function Register() {
 							required
 						/>
 					</div>
-					<div className="form-group">
+					<div className="mb-[10px]">
 						<input
 							type="password"
-							className="form-control"
+							className="w-full p-[10px] border border-solid border-[#e6e6e6] rounded-[5px] mb-[10px]"
 							id="password2"
 							name="password2"
 							value={password2}
@@ -118,8 +118,13 @@ function Register() {
 							required
 						/>
 					</div>
-					<div className="form-group">
-						<button className="btn btn-block">Submit</button>
+					<div className="mb-[10px]">
+						<button
+							className="px-[10px] py-[10px] border-solid border-1 border-highlight-green rounded-[5px]
+			bg-highlight-green text-[#fff] font-[16px] font-bold cursor-pointer text-center flex items-center justify-center w-full mb-[20px] hover:scale-[.98]"
+						>
+							Submit
+						</button>
 					</div>
 				</form>
 			</section>

@@ -30,9 +30,9 @@ function Tickets() {
 	return (
 		<>
 			<BackButton url="/" />
-			<h1>Tickets</h1>
-			<div className="tickets">
-				<div className="ticket-headings">
+			<h1 className="text-3xl p-[20px]">Tickets</h1>
+			<div>
+				<div className="font-bold grid grid-cols-4 gap-[20px] justify-between items-center mb-[20px] bg-bg-light py-[10px] px-[15px] rounded-[5px]text-center">
 					<div>Date</div>
 					<div>Product</div>
 					<div>Status</div>
