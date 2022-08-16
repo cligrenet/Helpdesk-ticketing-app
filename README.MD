@@ -1,4 +1,4 @@
-# Help Desk Ticketing App
+# Helpdesk Ticketing App
 
 ## About
 
@@ -21,3 +21,5 @@ Run `npm run dev` on the project root will launch both the server and the client
 
 -   Backend: `127.0.0.1:8080`
 -   Frontend: `127.0.0.1:3000`
+
+## Screen shots
